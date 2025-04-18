@@ -1,16 +1,90 @@
-This is a Kotlin Multiplatform project targeting Android, Desktop, Server.
+```markdown
+# EasyShare - Kotlin Multiplatform Application
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF?logo=kotlin&logoColor=white)
+![Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)
+![Desktop](https://img.shields.io/badge/Desktop-0078D7?logo=windows&logoColor=white)
+![Server](https://img.shields.io/badge/Server-000000?logo=ktor&logoColor=white)
 
-* `/server` is for the Ktor server application.
+EasyShare is a Kotlin Multiplatform project targeting:
+- Android (Compose)
+- Desktop (Compose)
+- Server (Ktor)
 
-* `/shared` is for the code that will be shared between all targets in the project.
-  The most important subfolder is `commonMain`. If preferred, you can add code to the platform-specific folders here too.
+## Project Structure
 
+```
+.
+├── composeApp/          # Shared Compose Multiplatform code
+│   ├── commonMain/      # Common code for all platforms
+│   ├── androidMain/     # Android-specific code
+│   └── desktopMain/     # Desktop-specific code
+├── server/              # Ktor server application
+└── shared/              # Shared code between all targets
+├── commonMain/      # Common platform-agnostic code
+├── androidMain/     # Android platform implementations
+└── jvmMain/         # JVM platform implementations
+```
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## Features
+
+- **Multiplatform UI**: Shared Compose UI across Android and Desktop
+- **Network Utilities**: Platform-specific network implementations
+- **Server Backend**: Ktor-based server for shared business logic
+
+## Prerequisites
+
+- Kotlin 1.9.20
+- Android Studio (for Android development)
+- JDK 11+
+- Gradle 8.9
+
+## Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/EasyShare.git
+   cd EasyShare
+   ```
+
+2. **Run Android App**
+  - Open project in Android Studio
+  - Select `composeApp` Android configuration
+  - Run on emulator or device
+
+3. **Run Desktop App**
+   ```bash
+   ./gradlew :composeApp:run
+   ```
+
+4. **Run Server**
+   ```bash
+   ./gradlew :server:run
+   ```
+
+## Building
+
+- **Android APK**:
+  ```bash
+  ./gradlew :composeApp:assembleDebug
+  ```
+
+- **Desktop Distribution**:
+  ```bash
+  ./gradlew :composeApp:packageDistributionForCurrentOS
+  ```
+
+## Dependencies
+
+- [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) - UI framework
+- [Ktor](https://ktor.io/) - Server framework
+- [Kotlinx Datetime](https://github.com/Kotlin/kotlinx-datetime) - Date/time utilities
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+```
