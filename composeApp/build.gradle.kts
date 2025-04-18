@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -7,6 +8,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.ksp)
+    id("kotlin-kapt")
 }
 
 kotlin {
@@ -36,9 +39,25 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(projects.shared)
+
+            implementation(libs.ktor.server.core)
+            implementation(libs.androidx.material.icons.extended)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.ktor.server.netty)
+            implementation(libs.ktor.server.websockets)
+            implementation(libs.ktor.client.java)
+            implementation(libs.ktor.network)
+            implementation(libs.richeditor.compose)
+            implementation(libs.voyager.navigator)
+            implementation(libs.ktor.network.tls)
+            implementation(libs.ktor.network.v311)
+            implementation(libs.androidx.room.runtime)
+
+            implementation(libs.kotlinx.datetime)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.skiko.awt.runtime.linux.x64)
             implementation(libs.kotlinx.coroutines.swing)
         }
     }
@@ -55,9 +74,10 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
-    packaging {
+    packagingOptions {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            pickFirsts.add("META-INF/INDEX.LIST")
+            pickFirsts.add("META-INF/io.netty.versions.properties")
         }
     }
     buildTypes {
@@ -78,7 +98,6 @@ dependencies {
 compose.desktop {
     application {
         mainClass = "dev.haas.easyshare.MainKt"
-
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "dev.haas.easyshare"
