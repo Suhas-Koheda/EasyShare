@@ -41,7 +41,7 @@ kotlin {
             implementation(projects.shared)
 
             implementation(libs.ktor.server.core)
-            implementation(libs.androidx.material.icons.extended)
+            //implementation(libs.androidx.material.icons.extended)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.ktor.server.netty)
             implementation(libs.ktor.server.websockets)
