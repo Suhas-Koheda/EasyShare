@@ -18,7 +18,6 @@ actual object NetworkUtils {
         } catch (e: Exception) {
             println(e.message)
         }
-        println(networkBroadcastAddresses.toTypedArray().contentToString())
         return networkBroadcastAddresses
     }
 
