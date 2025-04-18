@@ -1,4 +1,3 @@
-```markdown
 # EasyShare - Kotlin Multiplatform Application
 
 ![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF?logo=kotlin&logoColor=white)
