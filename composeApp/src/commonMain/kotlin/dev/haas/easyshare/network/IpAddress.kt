@@ -1,3 +1,6 @@
 package dev.haas.easyshare.network
 
-expect fun getBroadcastAddress():List<String>;
+expect object NetworkUtils {
+    fun getBroadcastAddress(): List<String>
+    fun getLocalIpAddress(): String
+}
