@@ -1,7 +1,6 @@
 package dev.haas.easyshare.network
 
 import java.net.NetworkInterface
-import java.util.Arrays
 import kotlin.streams.asSequence
 
 actual object NetworkUtils {

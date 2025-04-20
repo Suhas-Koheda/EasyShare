@@ -19,22 +19,21 @@ import kotlinx.coroutines.launch
 
 var receivedMessages= mutableStateListOf<String>()
 @OptIn(DelicateCoroutinesApi::class)
-fun startUdpServer(){
+fun startUdpServer(onMessageReceived: (String) -> Unit) {
     GlobalScope.launch(Dispatchers.IO) {
         try {
             val selectorManager = SelectorManager(Dispatchers.IO)
-            val serverSocket =
-                aSocket(selectorManager).udp().bind(InetSocketAddress("0.0.0.0", 4545))
+            val serverSocket = aSocket(selectorManager).udp().bind(InetSocketAddress("0.0.0.0", 4545))
             println("Server is listening on port 4545")
 
             while (true) {
                 val datagram = serverSocket.receive()
-                if(datagram.address.toJavaAddress().hostname != NetworkUtils.getLocalIpAddress()) {
+                val senderIp = datagram.address.toJavaAddress().hostname
+                if (senderIp != NetworkUtils.getLocalIpAddress()) {
                     val text = datagram.packet.readText()
-                    println(text)
-                    receivedMessages.add("Received: $text")
-                }
-                else{
+                    println("Received from $senderIp: $text")
+                    onMessageReceived(text)
+                } else {
                     println("Received message from self")
                 }
             }
@@ -43,6 +42,7 @@ fun startUdpServer(){
         }
     }
 }
+
 
 fun sendBroadcast(){
     CoroutineScope(Dispatchers.IO).launch {
